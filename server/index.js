@@ -16,9 +16,15 @@ passport.use(new GoogleStrategy({
 
 ))
 
+app.get(
+    '/auth/google',
+    passport.authenticate('google', {
+    scope: ['profile', 'email']
+}))
+
 app.get('/', (req,res) => {
 })
 
-app.listen(3004, () => {
-    console.log("listening on port 3004")
-})
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT)
