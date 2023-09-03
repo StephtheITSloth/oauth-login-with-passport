@@ -10,17 +10,25 @@ passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback'
-}, (accessToken) => {
-    console.log(accessToken)
+}, (accessToken, refreshToken, profile, done) => {
+    //in case of error check that the client secret is correct and without space
 }
 
 ))
 
+//no code
 app.get(
     '/auth/google',
     passport.authenticate('google', {
     scope: ['profile', 'email']
 }))
+
+
+//with oauth code
+app.get(
+    '/auth/google/callback',
+    passport.authenticate('google')
+    )
 
 app.get('/', (req,res) => {
 })
